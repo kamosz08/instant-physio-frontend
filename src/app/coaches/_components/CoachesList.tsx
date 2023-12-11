@@ -3,7 +3,7 @@ import { waitFor } from "@/utils/waitFor";
 import { Pagination } from "./Pagination";
 import queryString from "query-string";
 import { getSpecialistsAction } from "@/domain-logic/user/getSepcialists";
-import { specialistsApi } from "@/backendApi/specialists";
+import { specialistApi } from "@/backendApi/specialist";
 
 export async function CoachesList({
   searchParams,
@@ -13,18 +13,18 @@ export async function CoachesList({
   const stringifiedSearchParams = queryString.stringify(searchParams);
 
   const specialists = await getSpecialistsAction(() =>
-    specialistsApi.get(stringifiedSearchParams),
+    specialistApi.get(stringifiedSearchParams),
   );
 
   //TOOD: Remove wait and concating
   await waitFor(1000);
 
-  const tempCoaches = specialists
-    .concat(specialists)
-    .concat(specialists)
-    .concat(specialists)
-    .concat(specialists);
-  if (specialists.length === 0)
+  const tempCoaches = specialists.data
+    .concat(specialists.data)
+    .concat(specialists.data)
+    .concat(specialists.data)
+    .concat(specialists.data);
+  if (specialists.data.length === 0)
     return (
       <div className="w-full flex justify-center">
         <p className="text-lg text-neutral-500 my-12">No data found</p>

@@ -1,3 +1,4 @@
+import { RichData } from "@/domain-logic/richDataType";
 import { Specialist } from "@/domain-logic/user/getSepcialists";
 import { fetchClient } from "@/utils/fetchClient";
 
@@ -6,9 +7,9 @@ async function get(queryParameters: string | null) {
     `/api/v1/users/specialists${queryParameters ? "?" + queryParameters : ""}`,
   );
 
-  return specialists.data as Specialist[];
+  return specialists as RichData<Specialist>;
 }
 
-export const specialistsApi = {
+export const specialistApi = {
   get,
 };

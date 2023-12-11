@@ -1,14 +1,14 @@
 "use client";
 
+import { Specialization } from "@/domain-logic/user/getSpecializations";
 import { calculateSearchQuery } from "@/utils/calculateSearchQuery";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const TEMP_CATEGORIES = [
-  { id: 1, name: "Strength" },
-  { id: 2, name: "Yoga" },
-];
-
-export function CategoryFilter() {
+export function CategoryFilter({
+  categories,
+}: {
+  categories: Specialization[];
+}) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -37,7 +37,7 @@ export function CategoryFilter() {
   return (
     <div className="categories">
       <p className="text-lg font-semibold mb-4">Categories</p>
-      {TEMP_CATEGORIES.map((category) => (
+      {categories.map((category) => (
         <div className="form-control" key={category.id}>
           <label className="label cursor-pointer justify-start">
             <input

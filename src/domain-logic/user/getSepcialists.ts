@@ -1,4 +1,7 @@
+import { RichData } from "../richDataType";
+
 export interface Specialist {
+  id: number;
   name: string;
   username: string;
   avatar: string;
@@ -7,7 +10,7 @@ export interface Specialist {
 }
 
 export async function getSpecialistsAction(
-  getSpecialistsRequest: () => Promise<Specialist[]>,
+  getSpecialistsRequest: () => Promise<RichData<Specialist>>,
 ) {
   const specialists = await getSpecialistsRequest();
 

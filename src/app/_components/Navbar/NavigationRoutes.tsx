@@ -4,21 +4,38 @@ import { usePathname } from "next/navigation";
 
 export function NavigationRoutes() {
   const pathname = usePathname();
-  const navRoutes = [
-    { name: "Home", path: "/" },
-    { name: "Coaches", path: "/coaches" },
-  ];
 
   return (
-    <ul className="flex justify-evenly ">
-      {navRoutes.map((route) => (
-        <li
-          key={route.path}
-          className={pathname === route.path ? "px-4 text-primary" : "px-4"}
+    <>
+      <li className={pathname === "/" ? "px-4 text-primary" : "px-4"}>
+        <Link
+          className="active:!text-primary active:!bg-transparent focus:!text-primary focus:!bg-transparent"
+          href={"/"}
         >
-          <Link href={route.path}>{route.name}</Link>
-        </li>
-      ))}
-    </ul>
+          Home
+        </Link>
+      </li>
+      <li className={pathname === "/categories" ? "px-4 text-primary" : "px-4"}>
+        <details>
+          <summary>Categories</summary>
+          <ul className="p-2">
+            <li>
+              <a>Submenu 1</a>
+            </li>
+            <li>
+              <a>Submenu 2</a>
+            </li>
+          </ul>
+        </details>
+      </li>
+      <li className={pathname === "/coaches" ? "px-4 text-primary" : "px-4"}>
+        <Link
+          className="active:!text-primary active:!bg-transparent focus:!text-primary focus:!bg-transparent"
+          href={"/coaches"}
+        >
+          Coaches
+        </Link>
+      </li>
+    </>
   );
 }

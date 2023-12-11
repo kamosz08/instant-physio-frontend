@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { CategoryFilter } from "./CategoryFilter";
 import { GenderFilter } from "./GenderFilter";
+import { Specialization } from "@/domain-logic/user/getSpecializations";
 
-export function Filters() {
+export function Filters({ categories }: { categories: Specialization[] }) {
   return (
     <div className="mr-8 relative pb-10">
-      <CategoryFilter />
+      <CategoryFilter categories={categories} />
       <GenderFilter />
       <Link
         href={"/coaches"}

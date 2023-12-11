@@ -3,17 +3,21 @@ import { Filters } from "./_components/Filters/Filters";
 import { Suspense } from "react";
 import { LoadingSkeleton } from "./_components/LoadingSkeleton";
 import { Search } from "./_components/Search";
+import { getSpecializationsAction } from "@/domain-logic/user/getSpecializations";
+import { specializationApi } from "@/backendApi/specialization";
 
 export default async function Coaches(props: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  // console.log("Coaches render", props.searchParams);
+  const categories = await getSpecializationsAction(() =>
+    specializationApi.get(),
+  );
 
   return (
     <div className="w-full flex max-w-5xl" key={Math.random()}>
       {/* Math.random() is workaround required to force revalidate */}
       <div className="left min-w-[240px]">
-        <Filters />
+        <Filters categories={categories} />
       </div>
       <div className="right w-full">
         <div className="mb-4">

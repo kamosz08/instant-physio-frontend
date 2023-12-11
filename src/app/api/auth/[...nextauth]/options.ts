@@ -1,4 +1,4 @@
-import { usersApi } from "@/backendApi/user";
+import { userApi } from "@/backendApi/user";
 import { loginAction } from "@/domain-logic/user/login";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -21,7 +21,7 @@ export const nextAuthOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         const { user: responseUser, token } = await loginAction(() =>
-          usersApi.login({
+          userApi.login({
             username: credentials!.username,
             password: credentials!.password,
           }),

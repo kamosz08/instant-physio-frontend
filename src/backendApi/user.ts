@@ -20,6 +20,6 @@ async function login(credentials: { username: string; password: string }) {
   return { user, token } as { user: User; token: string };
 }
 
-export const usersApi = {
+export const userApi = {
   login,
 };

@@ -8,11 +8,11 @@ export function NavbarProfileSection({ session }: { session: Session | null }) {
   if (session) {
     return (
       <>
-        <Link className="px-4" href="/">
+        <Link className="btn btn-ghost px-4" href="/">
           Profile
         </Link>
         <button
-          className="px-4"
+          className="btn btn-ghost px-4"
           onClick={() => {
             signOut({ callbackUrl: "/" });
           }}
@@ -24,7 +24,7 @@ export function NavbarProfileSection({ session }: { session: Session | null }) {
   }
   return (
     <>
-      <Link className="px-4" href="/api/auth/signin">
+      <Link className="btn btn-ghost px-4" href="/api/auth/signin">
         Sign In
       </Link>
     </>
