@@ -6,8 +6,10 @@ export interface Specialist {
   description: string;
 }
 
-export async function getSpecialists(getter: () => Promise<Specialist[]>) {
-  const specialists = await getter();
+export async function getSpecialistsAction(
+  getSpecialistsRequest: () => Promise<Specialist[]>,
+) {
+  const specialists = await getSpecialistsRequest();
 
   return specialists;
 }

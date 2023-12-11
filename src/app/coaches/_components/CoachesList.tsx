@@ -2,7 +2,7 @@ import { CoachCard } from "./CoachCard";
 import { waitFor } from "@/utils/waitFor";
 import { Pagination } from "./Pagination";
 import queryString from "query-string";
-import { getSpecialists } from "@/domain-logic/getSepcialists";
+import { getSpecialistsAction } from "@/domain-logic/user/getSepcialists";
 import { specialistsApi } from "@/backendApi/specialists";
 
 export async function CoachesList({
@@ -12,7 +12,7 @@ export async function CoachesList({
 }) {
   const stringifiedSearchParams = queryString.stringify(searchParams);
 
-  const specialists = await getSpecialists(() =>
+  const specialists = await getSpecialistsAction(() =>
     specialistsApi.get(stringifiedSearchParams),
   );
 

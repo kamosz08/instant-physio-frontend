@@ -24,7 +24,7 @@ export function GenderFilter() {
       "gender",
       gender,
     );
-    console.log("toggleGender push to:", newSearchQuery);
+
     router.push(`${pathname}?${newSearchQuery}`);
   };
 

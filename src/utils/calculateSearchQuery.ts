@@ -2,8 +2,8 @@ import queryString from "query-string";
 
 export function calculateSearchQuery(
   currentSearchQuery: string,
-  filterKey: "specialization" | "gender",
-  filterValueToToggle: string,
+  filterKey: "specialization" | "gender" | "search",
+  filterValue: string,
 ): string | null {
   const parsedQuery = queryString.parse(currentSearchQuery);
   let parsedFilter = parsedQuery[filterKey];
@@ -12,21 +12,21 @@ export function calculateSearchQuery(
     case "gender":
     case "specialization": {
       if (!parsedFilter) {
-        parsedFilter = filterValueToToggle;
+        parsedFilter = filterValue;
         parsedQuery[filterKey] = parsedFilter;
         return queryString.stringify(parsedQuery);
       }
       if (parsedFilter && typeof parsedFilter === "string") {
         const currentValues = parsedFilter.split(",");
 
-        const isInCurrentQuery = currentValues.includes(filterValueToToggle);
+        const isInCurrentQuery = currentValues.includes(filterValue);
         const isTheOnlyValue = currentValues.length === 1;
 
         if (isInCurrentQuery && !isTheOnlyValue) {
           parsedFilter = currentValues
             .join(",")
-            .replace(`${filterValueToToggle},`, "")
-            .replace(`,${filterValueToToggle}`, "");
+            .replace(`${filterValue},`, "")
+            .replace(`,${filterValue}`, "");
 
           parsedQuery[filterKey] = parsedFilter;
           return queryString.stringify(parsedQuery);
@@ -38,12 +38,25 @@ export function calculateSearchQuery(
         }
 
         if (!isInCurrentQuery) {
-          parsedFilter = [...currentValues, filterValueToToggle].join(",");
+          parsedFilter = [...currentValues, filterValue].join(",");
           parsedQuery[filterKey] = parsedFilter;
           return queryString.stringify(parsedQuery);
         }
       }
 
+      return null;
+    }
+
+    case "search": {
+      if (filterValue) {
+        parsedFilter = filterValue;
+        parsedQuery[filterKey] = parsedFilter;
+        return queryString.stringify(parsedQuery);
+      }
+      if (parsedFilter && !filterValue) {
+        delete parsedQuery[filterKey];
+        return queryString.stringify(parsedQuery);
+      }
       return null;
     }
 

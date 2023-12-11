@@ -1,4 +1,4 @@
-import { Specialist } from "@/domain-logic/getSepcialists";
+import { Specialist } from "@/domain-logic/user/getSepcialists";
 import { fetchClient } from "@/utils/fetchClient";
 
 async function get(queryParameters: string | null) {

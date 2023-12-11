@@ -1,7 +1,25 @@
 const backendUrl = process.env.BACKEND_URL;
 
+//TODO: remove console logs
+
 export const fetchClient = {
-  get: async (url: string) => {
-    return fetch(`${backendUrl}${url}`).then((res) => res.json());
+  get: async (url: string, headers?: HeadersInit) => {
+    console.log("get: ", url);
+
+    return fetch(`${backendUrl}${url}`, { headers: headers }).then((res) =>
+      res.json(),
+    );
+  },
+  post: async (url: string, body: Object, headers?: HeadersInit) => {
+    console.log("post: ", url);
+
+    return fetch(`${backendUrl}${url}`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        ...headers,
+      },
+    }).then((res) => res.json());
   },
 };
