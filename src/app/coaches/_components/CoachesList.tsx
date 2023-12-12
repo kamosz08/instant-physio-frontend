@@ -3,7 +3,7 @@ import { waitFor } from "@/utils/waitFor";
 import { Pagination } from "./Pagination";
 import queryString from "query-string";
 import { getSpecialistsAction } from "@/domain-logic/user/getSepcialists";
-import { specialistApi } from "@/backendApi/specialist";
+import { backendApi } from "@/backendApi";
 
 export async function CoachesList({
   searchParams,
@@ -13,7 +13,7 @@ export async function CoachesList({
   const stringifiedSearchParams = queryString.stringify(searchParams);
 
   const specialists = await getSpecialistsAction(() =>
-    specialistApi.get(stringifiedSearchParams),
+    backendApi.specialist.get(stringifiedSearchParams),
   );
 
   //TOOD: Remove wait and concating

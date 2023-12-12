@@ -4,13 +4,14 @@ import { Suspense } from "react";
 import { LoadingSkeleton } from "./_components/LoadingSkeleton";
 import { Search } from "./_components/Search";
 import { getSpecializationsAction } from "@/domain-logic/user/getSpecializations";
-import { specializationApi } from "@/backendApi/specialization";
+import { backendApi } from "@/backendApi";
 
 export default async function Coaches(props: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  console.log("From Coaches");
   const categories = await getSpecializationsAction(() =>
-    specializationApi.get(),
+    backendApi.specialization.get(),
   );
 
   return (

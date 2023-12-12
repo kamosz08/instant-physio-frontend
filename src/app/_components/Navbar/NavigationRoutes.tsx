@@ -9,7 +9,6 @@ export function NavigationRoutes({
   categories: Specialization[];
 }) {
   const pathname = usePathname();
-  console.log(pathname);
 
   return (
     <>

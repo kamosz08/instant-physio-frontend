@@ -4,13 +4,13 @@ import { NavigationRoutes } from "./NavigationRoutes";
 import Image from "next/image";
 import { getAuthServerSession } from "@/utils/getAuthServerSession";
 import { getSpecializationsAction } from "@/domain-logic/user/getSpecializations";
-import { specializationApi } from "@/backendApi/specialization";
+import { backendApi } from "@/backendApi";
 
 export default async function Navbar() {
-  const session = await getAuthServerSession();
-  const categories = await getSpecializationsAction(() =>
-    specializationApi.get(),
-  );
+  const [session, categories] = await Promise.all([
+    getAuthServerSession(),
+    getSpecializationsAction(() => backendApi.specialization.get()),
+  ]);
 
   return (
     <div className="flex justify-center">

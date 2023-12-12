@@ -1,10 +1,11 @@
-import { specializationApi } from "@/backendApi/specialization";
+import { backendApi } from "@/backendApi";
 import { getSpecializationsAction } from "@/domain-logic/user/getSpecializations";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
+  console.log("From generateStaticParams(Category)");
   const categories = await getSpecializationsAction(() =>
-    specializationApi.get(),
+    backendApi.specialization.get(),
   );
 
   return categories.map((category) => ({
@@ -17,8 +18,9 @@ export default async function Category({
 }: {
   params: { category: string };
 }) {
+  console.log("From Category");
   const categories = await getSpecializationsAction(() =>
-    specializationApi.get(),
+    backendApi.specialization.get(),
   );
 
   const category = categories.find(
