@@ -1,9 +1,15 @@
 "use client";
+import { Specialization } from "@/domain-logic/user/getSpecializations";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export function NavigationRoutes() {
+export function NavigationRoutes({
+  categories,
+}: {
+  categories: Specialization[];
+}) {
   const pathname = usePathname();
+  console.log(pathname);
 
   return (
     <>
@@ -15,16 +21,27 @@ export function NavigationRoutes() {
           Home
         </Link>
       </li>
-      <li className={pathname === "/categories" ? "px-4 text-primary" : "px-4"}>
+      <li className="px-4">
         <details>
           <summary>Categories</summary>
           <ul className="p-2">
-            <li>
-              <a>Submenu 1</a>
-            </li>
-            <li>
-              <a>Submenu 2</a>
-            </li>
+            {categories.map((category) => (
+              <li
+                className={
+                  decodeURI(pathname) === `/categories/${category.name}`
+                    ? "text-primary"
+                    : ""
+                }
+                key={category.id}
+              >
+                <Link
+                  className="active:!text-primary active:!bg-transparent focus:!text-primary focus:!bg-transparent"
+                  href={`/categories/${category.name}`}
+                >
+                  {category.name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </details>
       </li>

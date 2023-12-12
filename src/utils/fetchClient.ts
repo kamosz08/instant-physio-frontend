@@ -4,7 +4,7 @@ const backendUrl = process.env.BACKEND_URL;
 
 export const fetchClient = {
   get: async (url: string, headers?: HeadersInit) => {
-    console.log("get: ", url);
+    console.log("get: ", backendUrl, url);
 
     return fetch(`${backendUrl}${url}`, { headers: headers }).then((res) =>
       res.json(),

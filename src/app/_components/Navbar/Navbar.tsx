@@ -3,9 +3,14 @@ import { NavbarProfileSection } from "./NavbarProfileSection";
 import { NavigationRoutes } from "./NavigationRoutes";
 import Image from "next/image";
 import { getAuthServerSession } from "@/utils/getAuthServerSession";
+import { getSpecializationsAction } from "@/domain-logic/user/getSpecializations";
+import { specializationApi } from "@/backendApi/specialization";
 
 export default async function Navbar() {
   const session = await getAuthServerSession();
+  const categories = await getSpecializationsAction(() =>
+    specializationApi.get(),
+  );
 
   return (
     <div className="flex justify-center">
@@ -32,7 +37,7 @@ export default async function Navbar() {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <NavigationRoutes />
+              <NavigationRoutes categories={categories} />
             </ul>
           </div>
           <Link href="/">
@@ -48,7 +53,7 @@ export default async function Navbar() {
         </div>
         <div className="navbar-center hidden md:flex">
           <ul className="menu menu-horizontal px-1">
-            <NavigationRoutes />
+            <NavigationRoutes categories={categories} />
           </ul>
         </div>
         <div className="navbar-end">
