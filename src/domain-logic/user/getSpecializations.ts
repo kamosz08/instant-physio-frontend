@@ -1,7 +1,7 @@
 export interface Specialization {
   id: number;
   name: string;
-  description: string;
+  slug: string;
 }
 
 export async function getSpecializationsAction(

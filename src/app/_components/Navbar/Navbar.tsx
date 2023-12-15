@@ -9,7 +9,7 @@ import { backendApi } from "@/backendApi";
 export default async function Navbar() {
   const [session, categories] = await Promise.all([
     getAuthServerSession(),
-    getSpecializationsAction(() => backendApi.specialization.get()),
+    getSpecializationsAction(() => backendApi.specialization.getAll()),
   ]);
 
   return (

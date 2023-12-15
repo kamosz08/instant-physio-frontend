@@ -11,11 +11,11 @@ export default async function Coaches(props: {
 }) {
   console.log("From Coaches");
   const categories = await getSpecializationsAction(() =>
-    backendApi.specialization.get(),
+    backendApi.specialization.getAll(),
   );
 
   return (
-    <div className="w-full flex max-w-5xl" key={Math.random()}>
+    <div className="w-full flex max-w-5xl px-4 sm:px-24" key={Math.random()}>
       {/* Math.random() is workaround required to force revalidate */}
       <div className="left min-w-[240px]">
         <Filters categories={categories} />

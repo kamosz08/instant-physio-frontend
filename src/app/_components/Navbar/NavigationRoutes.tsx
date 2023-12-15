@@ -2,6 +2,7 @@
 import { Specialization } from "@/domain-logic/user/getSpecializations";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRef } from "react";
 
 export function NavigationRoutes({
   categories,
@@ -9,6 +10,11 @@ export function NavigationRoutes({
   categories: Specialization[];
 }) {
   const pathname = usePathname();
+  const ref = useRef<HTMLDetailsElement>(null);
+
+  const handleSubmenuItemClick = () => {
+    ref.current!.open = false;
+  };
 
   return (
     <>
@@ -21,7 +27,7 @@ export function NavigationRoutes({
         </Link>
       </li>
       <li className="px-4">
-        <details>
+        <details ref={ref}>
           <summary>Categories</summary>
           <ul className="p-2">
             {categories.map((category) => (
@@ -32,6 +38,7 @@ export function NavigationRoutes({
                     : ""
                 }
                 key={category.id}
+                onClick={handleSubmenuItemClick}
               >
                 <Link
                   className="active:!text-primary active:!bg-transparent focus:!text-primary focus:!bg-transparent"

@@ -6,7 +6,16 @@ export default async function Footer() {
     <div className="py-12 px-16 w-full bg-gray-800 text-gray-300 text-sm leading-7">
       <div className="max-w-5xl flex justify-around mx-auto">
         <div className="mr-20">
-          <Link href="/">Logo</Link>
+          <Link href="/">
+            <Image
+              src="/logo-nobg.png"
+              alt="Instant Physio Logo"
+              className="h-12 object-contain"
+              width={160}
+              height={45}
+              priority
+            />
+          </Link>
         </div>
         <div>
           <p>Partnership</p>
