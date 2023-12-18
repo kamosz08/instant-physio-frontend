@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Footer() {
+export default function Footer() {
   return (
     <div className="py-12 px-16 w-full bg-gray-800 text-gray-300 text-sm leading-7">
       <div className="max-w-5xl flex justify-around mx-auto">

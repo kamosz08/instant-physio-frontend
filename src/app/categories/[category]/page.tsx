@@ -1,3 +1,6 @@
+import ChoosePricing from "@/app/_components/ChoosePricing";
+import HowItWorks from "@/app/_components/HowItWorks";
+import OnlineTrainingTable from "@/app/_components/OnlineTrainingTable";
 import { backendApi } from "@/backendApi";
 import { getSpecializationDetailsAction } from "@/domain-logic/user/getSpecializationDetails";
 import { getSpecializationsAction } from "@/domain-logic/user/getSpecializations";
@@ -56,7 +59,7 @@ export default async function Category({
           </div>
           <div className="flex-1">
             <Image
-              src={`http://localhost:8000/${category.mainPhoto}`}
+              src={`${process.env.BACKEND_URL}/${category.mainPhoto}`}
               alt={category.name}
               className="h-[400px] object-cover"
               width={600}
@@ -84,7 +87,7 @@ export default async function Category({
             </div>
             <div className="flex-1">
               <Image
-                src={`http://localhost:8000/${category.benefitsPhoto}`}
+                src={`${process.env.BACKEND_URL}/${category.benefitsPhoto}`}
                 alt={category.name}
                 className="h-[300px] object-cover"
                 width={500}
@@ -94,7 +97,24 @@ export default async function Category({
           </div>
         </div>
       </div>
-      Category {category.name}
+      <div className="w-full flex flex-col items-center mt-12 py-12 px-4 sm:px-24">
+        <div className="w-full max-w-5xl">
+          <HowItWorks />
+        </div>
+      </div>
+      <div className="w-full flex flex-col items-center mt-12 py-12 px-4 sm:px-24">
+        <div className="w-full max-w-5xl">
+          <OnlineTrainingTable />
+        </div>
+      </div>
+      <div className="w-full flex flex-col items-center mt-12 py-12 px-4 sm:px-24">
+        <div className="w-full max-w-5xl">
+          <p className="text-3xl font-semibold mb-12 text-center">
+            Choose your plan
+          </p>
+          <ChoosePricing />
+        </div>
+      </div>
     </div>
   );
 }

@@ -33,7 +33,7 @@ export function NavigationRoutes({
             {categories.map((category) => (
               <li
                 className={
-                  decodeURI(pathname) === `/categories/${category.name}`
+                  decodeURI(pathname) === `/categories/${category.slug}`
                     ? "text-primary"
                     : ""
                 }
@@ -42,7 +42,7 @@ export function NavigationRoutes({
               >
                 <Link
                   className="active:!text-primary active:!bg-transparent focus:!text-primary focus:!bg-transparent"
-                  href={`/categories/${category.name}`}
+                  href={`/categories/${category.slug}`}
                 >
                   {category.name}
                 </Link>
