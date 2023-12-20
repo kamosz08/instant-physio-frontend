@@ -19,11 +19,10 @@ export function GenderFilter() {
   };
 
   const toggleGender = (gender: string) => () => {
-    const newSearchQuery = calculateSearchQuery(
-      searchParams.toString(),
-      "gender",
-      gender,
-    );
+    const newSearchQuery = calculateSearchQuery(searchParams.toString(), {
+      key: "gender",
+      value: gender,
+    });
 
     router.push(`${pathname}?${newSearchQuery}`);
   };

@@ -1,45 +1,54 @@
 import queryString from "query-string";
 
+type Filter =
+  | {
+      key: "specialization" | "gender" | "search";
+      value: string;
+    }
+  | {
+      key: "available";
+      value: { from: string; to: string };
+    };
+
 export function calculateSearchQuery(
   currentSearchQuery: string,
-  filterKey: "specialization" | "gender" | "search",
-  filterValue: string,
+  filter: Filter,
 ): string | null {
   const parsedQuery = queryString.parse(currentSearchQuery);
-  let parsedFilter = parsedQuery[filterKey];
+  let parsedFilter = parsedQuery[filter.key];
 
-  switch (filterKey) {
+  switch (filter.key) {
     case "gender":
     case "specialization": {
       if (!parsedFilter) {
-        parsedFilter = filterValue;
-        parsedQuery[filterKey] = parsedFilter;
+        parsedFilter = filter.value;
+        parsedQuery[filter.key] = parsedFilter;
         return queryString.stringify(parsedQuery);
       }
       if (parsedFilter && typeof parsedFilter === "string") {
         const currentValues = parsedFilter.split(",");
 
-        const isInCurrentQuery = currentValues.includes(filterValue);
+        const isInCurrentQuery = currentValues.includes(filter.value);
         const isTheOnlyValue = currentValues.length === 1;
 
         if (isInCurrentQuery && !isTheOnlyValue) {
           parsedFilter = currentValues
             .join(",")
-            .replace(`${filterValue},`, "")
-            .replace(`,${filterValue}`, "");
+            .replace(`${filter.value},`, "")
+            .replace(`,${filter.value}`, "");
 
-          parsedQuery[filterKey] = parsedFilter;
+          parsedQuery[filter.key] = parsedFilter;
           return queryString.stringify(parsedQuery);
         }
 
         if (isInCurrentQuery && isTheOnlyValue) {
-          delete parsedQuery[filterKey];
+          delete parsedQuery[filter.key];
           return queryString.stringify(parsedQuery);
         }
 
         if (!isInCurrentQuery) {
-          parsedFilter = [...currentValues, filterValue].join(",");
-          parsedQuery[filterKey] = parsedFilter;
+          parsedFilter = [...currentValues, filter.value].join(",");
+          parsedQuery[filter.key] = parsedFilter;
           return queryString.stringify(parsedQuery);
         }
       }
@@ -48,13 +57,32 @@ export function calculateSearchQuery(
     }
 
     case "search": {
-      if (filterValue) {
-        parsedFilter = filterValue;
-        parsedQuery[filterKey] = parsedFilter;
+      if (filter.value) {
+        parsedFilter = filter.value;
+        parsedQuery[filter.key] = parsedFilter;
         return queryString.stringify(parsedQuery);
       }
-      if (parsedFilter && !filterValue) {
-        delete parsedQuery[filterKey];
+      if (parsedFilter && !filter.value) {
+        delete parsedQuery[filter.key];
+        return queryString.stringify(parsedQuery);
+      }
+      return null;
+    }
+
+    case "available": {
+      if (filter.value.from && filter.value.to) {
+        parsedQuery[`available[from]`] = filter.value.from;
+        parsedQuery[`available[to]`] = filter.value.to;
+        return queryString.stringify(parsedQuery);
+      }
+      if (
+        parsedQuery["available[from]"] &&
+        parsedQuery["available[to]"] &&
+        !filter.value.from &&
+        !filter.value.to
+      ) {
+        delete parsedQuery["available[from]"];
+        delete parsedQuery["available[to]"];
         return queryString.stringify(parsedQuery);
       }
       return null;

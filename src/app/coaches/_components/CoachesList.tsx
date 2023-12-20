@@ -13,7 +13,7 @@ export async function CoachesList({
   const stringifiedSearchParams = queryString.stringify(searchParams);
 
   const specialists = await getSpecialistsAction(() =>
-    backendApi.specialist.get(stringifiedSearchParams),
+    backendApi.specialist.getAll(stringifiedSearchParams),
   );
 
   //TOOD: Remove wait and concating

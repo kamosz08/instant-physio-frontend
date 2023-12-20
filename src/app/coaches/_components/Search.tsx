@@ -15,11 +15,10 @@ export function Search() {
 
   const debouncedSearch = useCallback(
     debounce((newSearch) => {
-      const newSearchQuery = calculateSearchQuery(
-        searchParams.toString(),
-        "search",
-        newSearch,
-      );
+      const newSearchQuery = calculateSearchQuery(searchParams.toString(), {
+        key: "search",
+        value: newSearch,
+      });
 
       router.push(`${pathname}?${newSearchQuery}`);
     }, 700),

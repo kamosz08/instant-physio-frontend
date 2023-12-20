@@ -25,11 +25,10 @@ export function CategoryFilter({
   };
 
   const toggleCategory = (categoryId: number) => () => {
-    const newSearchQuery = calculateSearchQuery(
-      searchParams.toString(),
-      "specialization",
-      categoryId.toString(),
-    );
+    const newSearchQuery = calculateSearchQuery(searchParams.toString(), {
+      key: "specialization",
+      value: categoryId.toString(),
+    });
 
     router.push(`${pathname}?${newSearchQuery}`);
   };
