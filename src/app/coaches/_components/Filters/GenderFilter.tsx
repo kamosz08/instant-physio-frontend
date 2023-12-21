@@ -28,7 +28,7 @@ export function GenderFilter() {
   };
 
   return (
-    <div className="gender mt-8">
+    <div className="gender">
       <p className="text-lg font-semibold mb-4">Gender</p>
       {GENDERS.map((gender) => (
         <div className="form-control" key={gender}>

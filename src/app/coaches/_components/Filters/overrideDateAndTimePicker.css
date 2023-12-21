@@ -1,0 +1,15 @@
+.react-timerange-picker__wrapper {
+  max-width: 188px;
+  border: none;
+  font-size: 1rem;
+}
+
+.react-timerange-picker__inputGroup {
+  min-width: 50px;
+  padding-left: 32px;
+  padding-right: 8px;
+}
+
+.react-calendar {
+  border: none;
+}

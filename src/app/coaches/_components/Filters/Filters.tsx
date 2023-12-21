@@ -6,10 +6,14 @@ import { AvailabilityFilter } from "./AvailabilityFilter";
 
 export function Filters({ categories }: { categories: Specialization[] }) {
   return (
-    <div className="mr-8 relative pb-10">
+    <div className="mr-8 relative pb-16">
       <CategoryFilter categories={categories} />
-      <GenderFilter />
-      <AvailabilityFilter />
+      <div className="mt-8">
+        <GenderFilter />
+      </div>
+      <div className="mt-8">
+        <AvailabilityFilter />
+      </div>
       <Link
         href={"/coaches"}
         className="btn btn-ghost btn-xs uppercase absolute left-0 bottom-0"

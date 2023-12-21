@@ -85,7 +85,7 @@ export function calculateSearchQuery(
         delete parsedQuery["available[to]"];
         return queryString.stringify(parsedQuery);
       }
-      return null;
+      return queryString.stringify(parsedQuery);
     }
 
     default:
