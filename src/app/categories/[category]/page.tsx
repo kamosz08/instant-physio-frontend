@@ -24,19 +24,11 @@ export default async function Category({
   params: { category: string };
 }) {
   console.log("From Category");
-  // const categories = await getSpecializationsAction(() =>
-  //   backendApi.specialization.getAll(),
-  // );
-
-  // const category = categories.find(
-  //   (cat) => cat.name === decodeURI(params.category),
-  // );
   const category = await getSpecializationDetailsAction(() =>
     backendApi.specialization.get({
       specializationSlug: decodeURI(params.category),
     }),
   );
-  console.log(category);
 
   if (!category) {
     notFound();

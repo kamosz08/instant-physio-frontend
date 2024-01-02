@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export function CoachCard({ coach }: { coach: any }) {
   return (
@@ -12,9 +13,12 @@ export function CoachCard({ coach }: { coach: any }) {
       />
       <p className="uppercase font-semibold mt-4">{coach.name}</p>
       <p className="mb-14">{coach.description}</p>
-      <button className="btn btn-outline btn-primary block absolute right-0 bottom-0">
+      <Link
+        href={`/coaches/${coach.id}`}
+        className="btn btn-outline btn-primary absolute right-0 bottom-0"
+      >
         Show more
-      </button>
+      </Link>
     </div>
   );
 }

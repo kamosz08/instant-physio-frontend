@@ -35,7 +35,6 @@ const formatChosenDate = (dateFrom: Date, dateTo: Date) => {
   const timeFrom = format(dateFrom, "HH:mm");
   const timeto = format(dateTo, "HH:mm");
 
-  // return `${date} ${timeFrom} - ${timeto}`;
   return (
     <div className="text-center">
       <p className="text-xs font-medium">{date}</p>
