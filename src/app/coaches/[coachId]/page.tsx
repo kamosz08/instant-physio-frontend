@@ -55,7 +55,7 @@ export default async function Coach({
             <Image
               src={`${process.env.BACKEND_URL}/${coach.avatar}`}
               alt={coach.name}
-              className="h-[600px] object-cover rounded-md"
+              className="h-[600px] object-cover rounded-md ml-auto"
               width={400}
               height={600}
             />

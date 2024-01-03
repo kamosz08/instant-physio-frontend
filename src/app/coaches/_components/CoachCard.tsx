@@ -12,7 +12,7 @@ export function CoachCard({ coach }: { coach: any }) {
         alt={coach.name}
       />
       <p className="uppercase font-semibold mt-4">{coach.name}</p>
-      <p className="mb-14">{coach.description}</p>
+      <p className="mb-14 line-clamp-3">{coach.description}</p>
       <Link
         href={`/coaches/${coach.id}`}
         className="btn btn-outline btn-primary absolute right-0 bottom-0"

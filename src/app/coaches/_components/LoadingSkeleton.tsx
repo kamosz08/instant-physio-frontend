@@ -1,8 +1,9 @@
 function SkeletonCard() {
   return (
     <div className="w-full animate-pulse ">
-      <div className="h-96 rounded dark:bg-gray-300"></div>
+      <div className="h-72 rounded dark:bg-gray-300"></div>
       <div className="w-20 h-5 mt-1 rounded dark:bg-gray-300"></div>
+      <div className="w-full h-5 mt-1 rounded dark:bg-gray-300"></div>
       <div className="w-full h-5 mt-1 rounded dark:bg-gray-300"></div>
       <div className="w-24 h-8 mt-2 ml-auto rounded dark:bg-gray-300"></div>
     </div>

@@ -27,9 +27,9 @@ const config: Config = {
   //     },
   //   },
   // },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("@tailwindcss/line-clamp")],
   daisyui: {
-    themes: ["light", "dark", "emerald"],
+    themes: ["light", "dark", "lofi"],
   },
 };
 export default config;

@@ -21,7 +21,7 @@ export default function RootLayout({
   console.log("RootLayout render");
 
   return (
-    <html lang="en" data-theme="emerald">
+    <html lang="en" data-theme="lofi">
       <body className={inter.className}>
         <AuthProvider>
           <Navbar />
