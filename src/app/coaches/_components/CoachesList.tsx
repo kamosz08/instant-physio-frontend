@@ -16,14 +16,9 @@ export async function CoachesList({
     backendApi.specialist.getAll(stringifiedSearchParams),
   );
 
-  //TOOD: Remove wait and concating
-  await waitFor(1000);
+  //TOOD: Remove wait
+  // await waitFor(1000);
 
-  const tempCoaches = specialists.data
-    .concat(specialists.data)
-    .concat(specialists.data)
-    .concat(specialists.data)
-    .concat(specialists.data);
   if (specialists.data.length === 0)
     return (
       <div className="w-full flex justify-center">
@@ -33,12 +28,12 @@ export async function CoachesList({
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {tempCoaches.map((coach, idx) => (
+        {specialists.data.map((coach, idx) => (
           <CoachCard key={idx} coach={coach} />
         ))}
       </div>
       <div className="w-full flex justify-center">
-        <Pagination />
+        <Pagination isLast={specialists.isLast} />
       </div>
     </div>
   );

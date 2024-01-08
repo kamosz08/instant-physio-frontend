@@ -2,7 +2,7 @@ import queryString from "query-string";
 
 type Filter =
   | {
-      key: "specialization" | "gender" | "search";
+      key: "specialization" | "gender" | "search" | "page";
       value: string;
     }
   | {
@@ -56,7 +56,8 @@ export function calculateSearchQuery(
       return null;
     }
 
-    case "search": {
+    case "search":
+    case "page": {
       if (filter.value) {
         parsedFilter = filter.value;
         parsedQuery[filter.key] = parsedFilter;
