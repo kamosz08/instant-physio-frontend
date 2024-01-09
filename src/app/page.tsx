@@ -46,11 +46,13 @@ export default async function Home() {
                 Personal Trainer keeps you accountable
               </p>
               <p className="">
-                Your personal trainer will monitor your progression via video
-                sessions, hone your technique and help you move towards your
-                goal effectively and safely whilst having fun as you go. PT is
-                also the best motivation not to skip sessions or quit training
-                altogether.
+                &quot;It’s easy to sink back into your couch with a bag of chips
+                and tell yourself you’ll work out tomorrow. Or, that you’re too
+                tired. I know it all too well my friend. But having a fitness
+                coach to check up on me daily has helped me kick excuses to the
+                curb. It’s easy to make excuses to yourself why you can’t work
+                out, but then try spelling them out to another person daily. It
+                actually gets kind of embarrassing.&quot;
               </p>
             </div>
             <div className="flex-1">
@@ -67,14 +69,13 @@ export default async function Home() {
           <div className="w-full flex gap-6 justify-between flex-col items-center md:flex-row mt-14">
             <div className="flex-1 md:ml-12">
               <p className="text-2xl font-semibold text-gray-800 mb-7 py-3">
-                Personal Trainer keeps you accountable
+                As flexible as possible
               </p>
               <p className="">
-                Your personal trainer will monitor your progression via video
-                sessions, hone your technique and help you move towards your
-                goal effectively and safely whilst having fun as you go. PT is
-                also the best motivation not to skip sessions or quit training
-                altogether.
+                You can pick any category of workout, you can pick any time you
+                want to train, you can train from anywhere. Your coach will
+                adjust training sessions to your personal needs. It can&lsquo;t
+                get more flexible than that.
               </p>
             </div>
             <div className="flex-1">

@@ -16,6 +16,7 @@ export function calculateSearchQuery(
 ): string | null {
   const parsedQuery = queryString.parse(currentSearchQuery);
   let parsedFilter = parsedQuery[filter.key];
+  parsedQuery["page"] = "1";
 
   switch (filter.key) {
     case "gender":
