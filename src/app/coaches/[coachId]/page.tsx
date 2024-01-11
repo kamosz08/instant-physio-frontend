@@ -3,6 +3,7 @@ import { getSpecialistDetailsAction } from "@/domain-logic/user/getSpecialistDet
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import ChoosePricing from "@/app/_components/ChoosePricing";
+import { BookMeetingModal } from "./_components/BookMeetingModal";
 
 export default async function Coach({
   params,
@@ -47,9 +48,7 @@ export default async function Coach({
               </>
             ) : null}
 
-            <button className="btn btn-primary mt-8 px-12">
-              Book a session
-            </button>
+            <BookMeetingModal />
           </div>
           <div className="flex-1">
             <Image
