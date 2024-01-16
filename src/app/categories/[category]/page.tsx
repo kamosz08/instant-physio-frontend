@@ -51,7 +51,7 @@ export default async function Category({
           </div>
           <div className="flex-1">
             <Image
-              src={`${process.env.BACKEND_URL}/${category.mainPhoto}`}
+              src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${category.mainPhoto}`}
               alt={category.name}
               className="h-[400px] object-cover"
               width={600}
@@ -79,7 +79,7 @@ export default async function Category({
             </div>
             <div className="flex-1">
               <Image
-                src={`${process.env.BACKEND_URL}/${category.benefitsPhoto}`}
+                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${category.benefitsPhoto}`}
                 alt={category.name}
                 className="h-[300px] object-cover"
                 width={500}

@@ -1,5 +1,6 @@
 import { User, loginAction } from "@/domain-logic/user/login";
-import { fetchClient } from "@/utils/fetchClient";
+import { fetchClient } from "@/utils/fetch/fetchClient";
+import { getSession } from "next-auth/react";
 
 async function login(credentials: { username: string; password: string }) {
   const getUser = async () => {
@@ -20,6 +21,23 @@ async function login(credentials: { username: string; password: string }) {
   return { user, token } as { user: User; token: string };
 }
 
+async function bookMeeting({
+  start_time,
+  end_time,
+  invitedUserId,
+}: {
+  start_time: string;
+  end_time: string;
+  invitedUserId: number;
+}) {
+  await fetchClient.post(`/api/v1/meetings`, {
+    start_time,
+    end_time,
+    invitedUserId,
+  });
+}
+
 export const userApi = {
   login,
+  bookMeeting,
 };

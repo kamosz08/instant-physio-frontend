@@ -1,6 +1,6 @@
 import { SpecializationDetails } from "@/domain-logic/user/getSpecializationDetails";
 import { Specialization } from "@/domain-logic/user/getSpecializations";
-import { fetchClient } from "@/utils/fetchClient";
+import { fetchClient } from "@/utils/fetch/fetchClient";
 
 async function getAll() {
   const specializationsResponse = await fetchClient.get(

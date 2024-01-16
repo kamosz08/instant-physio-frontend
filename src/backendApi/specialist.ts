@@ -1,7 +1,7 @@
 import { RichData } from "@/domain-logic/richDataType";
 import { Specialist } from "@/domain-logic/user/getSepcialists";
 import { SpecialistDetails } from "@/domain-logic/user/getSpecialistDetails";
-import { fetchClient } from "@/utils/fetchClient";
+import { fetchClient } from "@/utils/fetch/fetchClient";
 
 async function getAll(queryParameters: string | null) {
   const specialists = await fetchClient.get(
@@ -47,7 +47,20 @@ async function getSpecialistDetails({
   return { ...specialist, specializations };
 }
 
+async function getSpecialistAvailableHours({
+  specialistId,
+}: {
+  specialistId: number;
+}) {
+  const availableHoursResponse = await fetchClient.get(
+    `/api/v1/users/${specialistId}/availableHours`,
+  );
+
+  return availableHoursResponse.data as string[];
+}
+
 export const specialistApi = {
   getAll,
   getSpecialistDetails,
+  getSpecialistAvailableHours,
 };

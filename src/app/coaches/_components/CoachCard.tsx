@@ -6,7 +6,7 @@ export function CoachCard({ coach }: { coach: any }) {
     <div className="mb-8 relative">
       <Image
         className="rounded-lg max-h-96 object-cover"
-        src={`${process.env.BACKEND_URL}/${coach.avatar}`}
+        src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${coach.avatar}`}
         width={300}
         height={400}
         alt={coach.name}

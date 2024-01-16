@@ -1,75 +1,49 @@
-"use client";
+import { format } from "date-fns";
+import { MultipleItemsCarousel } from "./MultipleItemsCarousel";
 
-import { useState } from "react";
-import { LeftArrow } from "./LeftArrow";
-import { RightArrow } from "./RightArrow";
+export function HourPickerCarousel({
+  activeHour,
+  activeDay,
+  activeMonth,
+  hours,
+  setHour,
+}: {
+  hours: string[];
+  activeHour: string | null;
+  activeMonth: string;
+  activeDay: number;
+  setHour: (newHour: string) => void;
+}) {
+  const getDateByHour = (hour: string) => {
+    return new Date(
+      Number(activeMonth.split("-")[1]),
+      Number(activeMonth.split("-")[0]),
+      activeDay,
+      Number(hour.split(":")[0]),
+      Number(hour.split(":")[1]),
+    );
+  };
 
-const DUMMY_DATA = [
-  "10:00",
-  "11:00",
-  "12:00",
-  "13:00",
-  "14:00",
-  "15:00",
-  "16:00",
-  "17:00",
-  "18:00",
-];
-
-export function HourPickerCarousel() {
-  const [carouselIdx, setCarouselIdx] = useState(0);
-
-  const canGoLeft = carouselIdx >= 1;
-  const canGoRight = carouselIdx < 4;
-
-  const handleChangeCarouselIdx =
-    (up = false) =>
-    () => {
-      if (up) {
-        if (canGoRight) {
-          setCarouselIdx((prev) => prev + 1);
-        }
-        return;
-      }
-      if (canGoLeft) setCarouselIdx((prev) => prev - 1);
-    };
   return (
-    <div className="w-full flex justify-center items-center">
-      <button
-        className={`btn btn-xs btn-circle btn-ghost h-5 w-6 mr-3 ${
-          canGoLeft ? "" : "btn-disabled opacity-40"
-        }`}
-        onClick={handleChangeCarouselIdx()}
-      >
-        <LeftArrow />
-      </button>
-      <div className="w-full overflow-hidden flex flex-col justify-center">
-        <div
-          className="whitespace-nowrap flex gap-3"
-          style={{
-            transform: `translate(-${carouselIdx * 100}%)`,
-            transition: "transform 0.3s",
-          }}
-        >
-          {DUMMY_DATA.map((hour) => (
+    <MultipleItemsCarousel
+      itemRender={() => (
+        <>
+          {hours.map((hour) => (
             <div key={hour} className="inline-flex">
-              <button className="btn btn-outline rounded-sm h-auto w-32">
+              <button
+                className={`btn btn-outline rounded-sm h-auto w-32 ${
+                  activeHour === hour ? "btn-active" : ""
+                }`}
+                onClick={() => setHour(hour)}
+              >
                 <div className="py-2">
-                  <p className="">{hour}</p>
+                  <p className="">{format(getDateByHour(hour), "HH:mm")}</p>
                 </div>
               </button>
             </div>
           ))}
-        </div>
-      </div>
-      <button
-        className={`btn btn-xs btn-circle btn-ghost h-5 w-6 ml-3 ${
-          canGoRight ? "" : "btn-disabled  opacity-40"
-        }`}
-        onClick={handleChangeCarouselIdx(true)}
-      >
-        <RightArrow />
-      </button>
-    </div>
+        </>
+      )}
+    />
   );
 }
