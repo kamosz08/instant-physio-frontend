@@ -3,8 +3,11 @@
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function NavbarProfileSection({ session }: { session: Session | null }) {
+  const pathname = usePathname();
+
   if (session) {
     return (
       <>
@@ -24,7 +27,10 @@ export function NavbarProfileSection({ session }: { session: Session | null }) {
   }
   return (
     <>
-      <Link className="btn btn-ghost px-4" href="/api/auth/signin">
+      <Link
+        className="btn btn-ghost px-4"
+        href={`/login?callbackPath=${pathname}`}
+      >
         Sign In
       </Link>
     </>

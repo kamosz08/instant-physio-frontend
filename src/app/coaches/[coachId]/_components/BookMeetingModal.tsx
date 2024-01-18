@@ -67,11 +67,8 @@ export function BookMeetingModal({ coachId }: { coachId: number }) {
         end_time: chosenDateEnd.toISOString(),
       }),
     ).then(() => {
-      console.log("bookMeetingAction success!");
       setSuccess(true);
       fetchData();
-      // modalRef.current?.close();
-      //display alert message, close modal
     });
   };
 

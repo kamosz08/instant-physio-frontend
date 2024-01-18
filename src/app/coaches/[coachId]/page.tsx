@@ -4,25 +4,28 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import ChoosePricing from "@/app/_components/ChoosePricing";
 import { BookMeetingModal } from "./_components/BookMeetingModal";
+import { getAuthServerSession } from "@/utils/getAuthServerSession";
+import { LoginModal } from "./_components/LoginModal";
 
 export default async function Coach({
   params,
 }: {
   params: { coachId: string };
 }) {
-  console.log("From Coach");
-
   const coachId = Number(params.coachId);
 
   if (Number.isNaN(coachId)) {
     notFound();
   }
 
-  const coach = await getSpecialistDetailsAction(() =>
-    backendApi.specialist.getSpecialistDetails({
-      specialistId: coachId,
-    }),
-  );
+  const [session, coach] = await Promise.all([
+    getAuthServerSession(),
+    getSpecialistDetailsAction(() =>
+      backendApi.specialist.getSpecialistDetails({
+        specialistId: coachId,
+      }),
+    ),
+  ]);
 
   if (!coach) {
     notFound();
@@ -48,7 +51,7 @@ export default async function Coach({
               </>
             ) : null}
 
-            <BookMeetingModal coachId={coachId} />
+            {session ? <BookMeetingModal coachId={coachId} /> : <LoginModal />}
           </div>
           <div className="flex-1">
             <Image
