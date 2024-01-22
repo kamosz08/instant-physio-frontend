@@ -39,6 +39,12 @@ class FetchClient {
         ...headers,
       },
     }).then((res) => {
+      if (res?.status >= 400) {
+        return res.json().then((errorResponse) => {
+          throw new Error(errorResponse?.message || "Something went wrong");
+        });
+      }
+
       if (res?.status !== 201) return res.json();
     });
   }
