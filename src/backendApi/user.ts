@@ -37,7 +37,16 @@ async function bookMeeting({
   });
 }
 
+async function buyCredits({ credits }: { credits: number }) {
+  const response = await fetchClient.post(`/api/v1/users/buyCredits`, {
+    credits,
+  });
+
+  return response?.data;
+}
+
 export const userApi = {
   login,
   bookMeeting,
+  buyCredits,
 };

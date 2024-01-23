@@ -5,6 +5,7 @@ export interface User {
   type: "specialist" | "user" | "admin";
   status: "active" | "waiting_approval" | "denied" | "inactive";
   avatar: string | null;
+  credits: number;
 }
 
 export async function loginAction(

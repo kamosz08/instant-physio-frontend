@@ -59,8 +59,10 @@ export function BookMeetingModal({ coachId }: { coachId: number }) {
 
   const renderContent = () => {
     if (formStatus.status === "success") return <Success />;
+
     if (formStatus.status === "error")
       return <Error errorMsg={formStatus.errorMsg} />;
+
     if (months && pickedDate.month)
       return (
         <>
@@ -103,7 +105,7 @@ export function BookMeetingModal({ coachId }: { coachId: number }) {
             }`}
             onClick={bookMeeting}
           >
-            Next step
+            Confirm
           </button>
         </>
       );

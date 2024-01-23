@@ -2,7 +2,7 @@ import { backendApi } from "@/backendApi";
 import { getSpecialistDetailsAction } from "@/domain-logic/user/getSpecialistDetails";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import ChoosePricing from "@/app/_components/ChoosePricing";
+import { ChoosePricing } from "@/app/_components/ChoosePricing";
 import { BookMeetingModal } from "./_components/BookMeetingModal";
 import { getAuthServerSession } from "@/utils/getAuthServerSession";
 import { LoginModal } from "./_components/LoginModal";

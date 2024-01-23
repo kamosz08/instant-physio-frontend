@@ -1,4 +1,4 @@
-import ChoosePricing from "@/app/_components/ChoosePricing";
+import { ChoosePricing } from "@/app/_components/ChoosePricing";
 import HowItWorks from "@/app/_components/HowItWorks";
 import OnlineTrainingTable from "@/app/_components/OnlineTrainingTable";
 import { backendApi } from "@/backendApi";
