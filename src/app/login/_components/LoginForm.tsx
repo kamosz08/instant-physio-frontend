@@ -35,6 +35,9 @@ export const LoginForm = ({ redirectPath }: { redirectPath?: string }) => {
           window.location.href =
             window.location.origin + searchParams.get("callbackPath")!;
         }
+        if (searchParams.get("callbackUrl")) {
+          window.location.href = searchParams.get("callbackUrl")!;
+        }
       } else {
         setFormState({ state: "error", error: "invalid username or password" });
       }

@@ -3,7 +3,7 @@ import { Specialization } from "@/domain-logic/user/getSpecializations";
 import { fetchClient } from "@/utils/fetch/fetchClient";
 
 async function getAll() {
-  const specializationsResponse = await fetchClient.get(
+  const { body: specializationsResponse } = await fetchClient.get(
     `/api/v1/specializations`,
   );
 
@@ -11,7 +11,7 @@ async function getAll() {
 }
 
 async function get({ specializationSlug }: { specializationSlug: string }) {
-  const specializationResponse = await fetchClient.get(
+  const { body: specializationResponse } = await fetchClient.get(
     `/api/v1/specializations/${specializationSlug}`,
   );
 

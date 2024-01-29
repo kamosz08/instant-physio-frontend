@@ -6,12 +6,18 @@ import { User as UserType } from "./src/domain-logic/user/login";
 
 declare module "next-auth" {
   interface Session {
-    user: DefaultUser & { details: UserType; accessToken: string };
+    user: DefaultUser & {
+      details: UserType;
+      accessToken: string;
+      expireTime: number;
+    };
+    error?: "RefreshAccessTokenError";
   }
 
   interface User extends DefaultUser {
     details: UserType;
     accessToken: string;
+    expireTime: number;
   }
 
   // interface Profile { }
@@ -23,5 +29,7 @@ declare module "next-auth/jwt" {
   interface JWT extends DefaultJWT {
     details: UserType;
     accessToken: string;
+    expireTime: number;
+    error?: "RefreshAccessTokenError";
   }
 }

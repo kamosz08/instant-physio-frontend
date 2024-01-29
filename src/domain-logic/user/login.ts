@@ -9,9 +9,14 @@ export interface User {
 }
 
 export async function loginAction(
-  loginRequest: () => Promise<{ user: User; token: string }>,
+  loginRequest: () => Promise<{
+    user: User;
+    accessToken: string;
+    refreshToken: string;
+    expireTime: number;
+  }>,
 ) {
-  const token = await loginRequest();
+  const response = await loginRequest();
 
-  return token;
+  return response;
 }

@@ -24,7 +24,9 @@ class FetchClient {
 
     return fetch(`${backendUrl}${url}`, {
       headers: { ...this.getDefaultHeaders(), ...headers },
-    }).then((res) => res.json());
+    }).then(async (res) => {
+      return { body: await res.json(), headers: res.headers };
+    });
   }
 
   public async post(url: string, body: Object, headers?: HeadersInit) {
@@ -38,14 +40,17 @@ class FetchClient {
         ...this.getDefaultHeaders(),
         ...headers,
       },
-    }).then((res) => {
+    }).then(async (res) => {
       if (res?.status >= 400) {
         return res.json().then((errorResponse) => {
           throw new Error(errorResponse?.message || "Something went wrong");
         });
       }
 
-      if (res?.status !== 201) return res.json();
+      if (res?.status !== 201)
+        return { body: await res.json(), headers: res.headers };
+
+      return { body: null, headers: res.headers };
     });
   }
 }

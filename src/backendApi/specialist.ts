@@ -4,7 +4,7 @@ import { SpecialistDetails } from "@/domain-logic/user/getSpecialistDetails";
 import { fetchClient } from "@/utils/fetch/fetchClient";
 
 async function getAll(queryParameters: string | null) {
-  const specialists = await fetchClient.get(
+  const { body: specialists } = await fetchClient.get(
     `/api/v1/users/specialists${queryParameters ? "?" + queryParameters : ""}`,
   );
 
@@ -12,7 +12,7 @@ async function getAll(queryParameters: string | null) {
 }
 
 async function get({ specialistId }: { specialistId: number }) {
-  const specializationResponse = await fetchClient.get(
+  const { body: specializationResponse } = await fetchClient.get(
     `/api/v1/users/specialists/${specialistId}`,
   );
 
@@ -27,7 +27,7 @@ async function getUserSpecializations({
 }: {
   specialistId: number;
 }) {
-  const specializationResponse = await fetchClient.get(
+  const { body: specializationResponse } = await fetchClient.get(
     `/api/v1/users/${specialistId}/specializations`,
   );
 
@@ -52,7 +52,7 @@ async function getSpecialistAvailableHours({
 }: {
   specialistId: number;
 }) {
-  const availableHoursResponse = await fetchClient.get(
+  const { body: availableHoursResponse } = await fetchClient.get(
     `/api/v1/users/${specialistId}/availableHours`,
   );
 

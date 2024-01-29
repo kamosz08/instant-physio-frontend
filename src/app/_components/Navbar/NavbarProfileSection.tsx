@@ -17,7 +17,7 @@ export function NavbarProfileSection({ session }: { session: Session | null }) {
         </span>
         <span className="mr-2 text-sm text-gray-500 sm:hidden">c:</span>
         <p className="font-semibold mr-2 text-sm">
-          {data?.user.details.credits || session.user.details.credits}
+          {data?.user.details.credits || session.user.details?.credits}
         </p>
         <button
           className="btn btn-ghost px-4"

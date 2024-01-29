@@ -1,24 +1,58 @@
-import { User, loginAction } from "@/domain-logic/user/login";
+import { User } from "@/domain-logic/user/login";
 import { fetchClient } from "@/utils/fetch/fetchClient";
-import { getSession } from "next-auth/react";
 
 async function login(credentials: { username: string; password: string }) {
-  const getUser = async () => {
-    const tokenResponse = await fetchClient.post(
-      "/api/v1/users/login",
-      credentials,
-    );
+  const { body: tokenResponse, headers } = await fetchClient.post(
+    "/api/v1/users/login",
+    credentials,
+  );
 
-    const userResponse = await fetchClient.get("/api/v1/users/me", {
-      Authorization: `Bearer ${tokenResponse.token}`,
-    });
+  const cookies = headers.getSetCookie();
+  const refreshToken = cookies[0]
+    .split(";")
+    .find((s) => s.includes("refreshToken"))!
+    .split("=")[1];
 
-    return { user: userResponse.data, token: tokenResponse.token };
+  const { body: userResponse } = await fetchClient.get("/api/v1/users/me", {
+    Authorization: `Bearer ${tokenResponse.accessToken}`,
+  });
+
+  return {
+    user: userResponse.data,
+    accessToken: tokenResponse.accessToken,
+    refreshToken: refreshToken,
+    expireTime: tokenResponse.expireTime,
+  } as {
+    user: User;
+    accessToken: string;
+    expireTime: number;
+    refreshToken: string;
   };
+}
 
-  const { user, token } = await loginAction(getUser);
+async function refreshToken({ refreshToken }: { refreshToken: string }) {
+  const { body: tokenResponse, headers } = await fetchClient.post(
+    "/api/v1/users/token",
+    {
+      refreshToken,
+    },
+  );
 
-  return { user, token } as { user: User; token: string };
+  const cookies = headers.getSetCookie();
+  const newRefreshToken = cookies[0]
+    .split(";")
+    .find((s) => s.includes("refreshToken"))!
+    .split("=")[1];
+
+  return {
+    accessToken: tokenResponse.accessToken,
+    refreshToken: newRefreshToken,
+    expireTime: tokenResponse.expireTime,
+  } as {
+    accessToken: string;
+    expireTime: number;
+    refreshToken: string;
+  };
 }
 
 async function bookMeeting({
@@ -38,9 +72,12 @@ async function bookMeeting({
 }
 
 async function buyCredits({ credits }: { credits: number }) {
-  const response = await fetchClient.post(`/api/v1/users/buyCredits`, {
-    credits,
-  });
+  const { body: response } = await fetchClient.post(
+    `/api/v1/users/buyCredits`,
+    {
+      credits,
+    },
+  );
 
   return response?.data;
 }
@@ -49,4 +86,5 @@ export const userApi = {
   login,
   bookMeeting,
   buyCredits,
+  refreshToken,
 };
