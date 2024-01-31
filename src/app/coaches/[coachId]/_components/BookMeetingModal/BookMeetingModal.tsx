@@ -12,6 +12,7 @@ import { Error } from "./Error";
 import { Success } from "./Success";
 import { getDateFromState } from "./getDateDromState";
 import { usePickedDateState } from "./usePickedDateState";
+import { useSession } from "next-auth/react";
 
 type FormStatus =
   | { status: "idle" }
@@ -20,7 +21,7 @@ type FormStatus =
 
 export function BookMeetingModal({ coachId }: { coachId: number }) {
   const modalRef = useRef<HTMLDialogElement>(null);
-
+  const { update, data } = useSession();
   const { months, days, hours, fetchData } = useAvailableDates(coachId);
   const { pickedDate, setDay, setHour, setMonth, isDatePicked } =
     usePickedDateState(months);
@@ -50,6 +51,7 @@ export function BookMeetingModal({ coachId }: { coachId: number }) {
     )
       .then(() => {
         setFormStatus({ status: "success" });
+        if (data) update({ credits: data.user.details.credits - 10 });
         fetchData();
       })
       .catch((err: Error) => {

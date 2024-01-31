@@ -1,3 +1,4 @@
+import { MySession } from "@/domain-logic/authUser/getMyUpcomingSessions";
 import { User } from "@/domain-logic/user/login";
 import { fetchClient } from "@/utils/fetch/fetchClient";
 
@@ -82,9 +83,59 @@ async function buyCredits({ credits }: { credits: number }) {
   return response?.data;
 }
 
+async function getMyUpcomingSessions({
+  userId,
+}: {
+  userId: number;
+}): Promise<MySession[]> {
+  const { body } = await fetchClient.get(
+    `/api/v1/users/${userId}/meetings/upcoming`,
+  );
+
+  const meetings = body.data as {
+    id: number;
+    status: "invited" | "accepted" | "denied";
+    start_time: string;
+    participants: { avatar: string | null; id: number; name: string }[];
+  }[];
+
+  return meetings.map((meeting) => ({
+    id: meeting.id,
+    status: meeting.status,
+    date: meeting.start_time,
+    coach: meeting.participants.find((p) => p.id !== userId)!,
+  }));
+}
+
+async function getMyHistorySessions({
+  userId,
+}: {
+  userId: number;
+}): Promise<MySession[]> {
+  const { body } = await fetchClient.get(
+    `/api/v1/users/${userId}/meetings/history`,
+  );
+
+  const meetings = body.data as {
+    id: number;
+    status: "invited" | "accepted" | "denied";
+    start_time: string;
+    participants: { avatar: string | null; id: number; name: string }[];
+  }[];
+
+  return meetings.map((meeting) => ({
+    id: meeting.id,
+    status: meeting.status,
+    date: meeting.start_time,
+    coach: meeting.participants.find((p) => p.id !== userId)!,
+  }));
+}
+
 export const userApi = {
   login,
   bookMeeting,
   buyCredits,
   refreshToken,
+  getMyUpcomingSessions,
+  getMyHistorySessions,
 };

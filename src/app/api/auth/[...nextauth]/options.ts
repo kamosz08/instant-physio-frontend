@@ -1,6 +1,7 @@
 import { backendApi } from "@/backendApi";
 import { refreshTokenAction } from "@/domain-logic/authUser/refreshToken";
 import { loginAction } from "@/domain-logic/user/login";
+import { fetchClient } from "@/utils/fetch/fetchClient";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
@@ -34,10 +35,10 @@ export const nextAuthOptions: NextAuthOptions = {
           }),
         );
 
-        cookies().set("refreshToken", refreshToken, {
-          secure: true,
-          httpOnly: true,
-        });
+        // cookies().set("refreshToken", refreshToken, {
+        //   secure: true,
+        //   httpOnly: true,
+        // });
 
         if (responseUser) {
           const user = {
@@ -45,6 +46,7 @@ export const nextAuthOptions: NextAuthOptions = {
             name: responseUser.name,
             username: responseUser.username,
             accessToken: accessToken,
+            refreshToken: refreshToken,
             expireTime: expireTime,
             details: responseUser,
           };
@@ -58,9 +60,12 @@ export const nextAuthOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user, trigger, session }) {
       if (user) {
+        token.sub = user.id;
         token.details = user.details;
         token.accessToken = user.accessToken;
+        token.refreshToken = user.refreshToken;
         token.expireTime = user.expireTime;
+        token.error = undefined;
       }
 
       if (trigger === "update" && typeof session?.credits === "number") {
@@ -69,8 +74,11 @@ export const nextAuthOptions: NextAuthOptions = {
 
       // Token has expired, try refresh token
       if (Date.now() > token.expireTime) {
-        const currentRefreshToken = cookies().get("refreshToken");
+        const currentRefreshToken = token.refreshToken;
+        // const currentRefreshToken = cookies().get("refreshToken");
         if (!currentRefreshToken) {
+          console.log("jwt, brak currentRefreshToken z cookies");
+
           return {
             ...token,
             error: "RefreshAccessTokenError",
@@ -81,18 +89,23 @@ export const nextAuthOptions: NextAuthOptions = {
           const { accessToken, refreshToken, expireTime } =
             await refreshTokenAction(() =>
               backendApi.user.refreshToken({
-                refreshToken: currentRefreshToken.value,
+                refreshToken: currentRefreshToken,
               }),
             );
 
-          cookies().set("refreshToken", refreshToken, {
-            secure: true,
-            httpOnly: true,
-          });
+          // cookies().set("refreshToken", refreshToken, {
+          //   secure: true,
+          //   httpOnly: true,
+          // });
 
           token.accessToken = accessToken;
+          token.refreshToken = refreshToken;
           token.expireTime = expireTime;
+          token.error = undefined;
+          console.log("jwt, token refreshed");
         } catch (error) {
+          console.log("jwt, some error", error);
+
           return {
             ...token,
             error: "RefreshAccessTokenError",
@@ -100,10 +113,16 @@ export const nextAuthOptions: NextAuthOptions = {
         }
       }
 
+      console.log("jwt, set Authorization header");
+      fetchClient.setDefaultServerHeaders({
+        Authorization: `Bearer ${token.accessToken}`,
+      });
+
       return token;
     },
     async session({ session, token }) {
-      if (session.user && token.details) {
+      if (session.user && token.details && token.sub) {
+        session.user.id = token.sub;
         session.user.details = token.details;
         session.user.accessToken = token.accessToken;
       }

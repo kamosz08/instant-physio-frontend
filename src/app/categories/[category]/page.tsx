@@ -5,6 +5,7 @@ import { backendApi } from "@/backendApi";
 import { getSpecializationDetailsAction } from "@/domain-logic/user/getSpecializationDetails";
 import { getSpecializationsAction } from "@/domain-logic/user/getSpecializations";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -47,7 +48,12 @@ export default async function Category({
               ✔ You can train anywhere in the world
             </p>
             <p className="text-lg py-1">✔ All you need is some space</p>
-            <button className="btn btn-primary mt-8 px-12">Start now</button>
+            <Link
+              className="btn btn-primary mt-8 px-12"
+              href={`/coaches?page=1&specialization=${category.id}`}
+            >
+              Start now
+            </Link>
           </div>
           <div className="flex-1">
             <Image

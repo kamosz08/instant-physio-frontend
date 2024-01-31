@@ -1,7 +1,7 @@
 "use client";
 
 import { useApplyAuthToFetchClient } from "@/utils/fetch/useFetchClient";
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider, SessionProviderProps } from "next-auth/react";
 import { useHandleAuthError } from "./useHandleAuthError";
 
 function HooksUsingAuthSession() {
@@ -13,11 +13,13 @@ function HooksUsingAuthSession() {
 
 export default function AuthProvider({
   children,
+  session,
 }: {
+  session: SessionProviderProps["session"];
   children: React.ReactNode;
 }) {
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
       <HooksUsingAuthSession />
       {children}
     </SessionProvider>

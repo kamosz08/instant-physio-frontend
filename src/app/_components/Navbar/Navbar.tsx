@@ -7,10 +7,9 @@ import { getSpecializationsAction } from "@/domain-logic/user/getSpecializations
 import { backendApi } from "@/backendApi";
 
 export default async function Navbar() {
-  const [session, categories] = await Promise.all([
-    getAuthServerSession(),
-    getSpecializationsAction(() => backendApi.specialization.getAll()),
-  ]);
+  const categories = await getSpecializationsAction(() =>
+    backendApi.specialization.getAll(),
+  );
 
   return (
     <div className="flex justify-center">
@@ -57,7 +56,7 @@ export default async function Navbar() {
           </ul>
         </div>
         <div className="navbar-end">
-          <NavbarProfileSection session={session} />
+          <NavbarProfileSection />
         </div>
       </div>
     </div>

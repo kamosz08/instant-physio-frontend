@@ -1,5 +1,4 @@
 import { CoachCard } from "./CoachCard";
-import { waitFor } from "@/utils/waitFor";
 import { Pagination } from "./Pagination";
 import queryString from "query-string";
 import { getSpecialistsAction } from "@/domain-logic/user/getSepcialists";
@@ -15,9 +14,6 @@ export async function CoachesList({
   const specialists = await getSpecialistsAction(() =>
     backendApi.specialist.getAll(stringifiedSearchParams),
   );
-
-  //TOOD: Remove wait
-  // await waitFor(1000);
 
   if (specialists.data.length === 0)
     return (

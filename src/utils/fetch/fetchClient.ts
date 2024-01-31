@@ -2,19 +2,28 @@ const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 class FetchClient {
   private clientHeaders: HeadersInit;
+  private serverHeaders: HeadersInit;
 
   constructor() {
     this.clientHeaders = {};
+    this.serverHeaders = {};
   }
 
   private getDefaultHeaders() {
     if (typeof window !== "undefined") return this.clientHeaders;
-    return {};
+    return this.serverHeaders;
   }
 
   public setDefaultClientHeaders(headers: HeadersInit) {
     this.clientHeaders = {
       ...this.clientHeaders,
+      ...headers,
+    };
+  }
+
+  public setDefaultServerHeaders(headers: HeadersInit) {
+    this.serverHeaders = {
+      ...this.serverHeaders,
       ...headers,
     };
   }
