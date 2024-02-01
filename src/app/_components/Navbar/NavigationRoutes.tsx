@@ -1,5 +1,6 @@
 "use client";
 import { Specialization } from "@/domain-logic/user/getSpecializations";
+import { useCloseDropdownOnClickOutside } from "@/utils/useCloseDropdownOnClickOutside";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef } from "react";
@@ -11,6 +12,7 @@ export function NavigationRoutes({
 }) {
   const pathname = usePathname();
   const ref = useRef<HTMLDetailsElement>(null);
+  useCloseDropdownOnClickOutside(ref);
 
   const handleSubmenuItemClick = () => {
     ref.current!.open = false;
