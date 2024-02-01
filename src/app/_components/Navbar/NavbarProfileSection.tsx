@@ -29,13 +29,19 @@ export function NavbarProfileSection() {
         </p>
         <details className="dropdown dropdown-end" ref={ref}>
           <summary className="block">
-            <div className="w-10 rounded-full">
-              <Image
-                width={40}
-                height={40}
-                alt="Tailwind CSS Navbar component"
-                src="/default-avatar.png"
-              />
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <Image
+                  width={40}
+                  height={40}
+                  alt="Tailwind CSS Navbar component"
+                  src="/default-avatar.png"
+                />
+              </div>
             </div>
           </summary>
           <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">

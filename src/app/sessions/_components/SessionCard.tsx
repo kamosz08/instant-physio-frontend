@@ -1,7 +1,8 @@
 import { MySession } from "@/domain-logic/authUser/getMyUpcomingSessions";
-import { format, isAfter } from "date-fns";
+import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import { CancelMeetingButton } from "./CancelMeetingButton";
 
 const formatDisplayTime = (dateStr: string) => {
   return format(new Date(dateStr), "HH:mm");
@@ -16,10 +17,6 @@ const getAvatarSrc = (avatarUrl: string | null) => {
   return "/default-avatar.png";
 };
 
-const isFuture = (dateStr: string) => {
-  return isAfter(new Date(dateStr), new Date());
-};
-
 const getColorBasedOnStatus = (status: MySession["status"]) => {
   switch (status) {
     case "accepted":
@@ -28,6 +25,8 @@ const getColorBasedOnStatus = (status: MySession["status"]) => {
       return "red-500";
     case "invited":
       return "yellow-500";
+    case "canceled":
+      return "grey-500";
     default:
       break;
   }
@@ -74,12 +73,7 @@ export function SessionCard({ session }: { session: MySession }) {
       </div>
       <div className="divider divider-horizontal"></div>
       <div>
-        <button
-          className="btn btn-error btn-sm btn-ghost text-red-500"
-          disabled={!isFuture(session.date) || session.status === "denied"}
-        >
-          Cancel
-        </button>
+        <CancelMeetingButton session={session} />
       </div>
     </div>
   );

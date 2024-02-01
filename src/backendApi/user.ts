@@ -1,6 +1,7 @@
 import { MySession } from "@/domain-logic/authUser/getMyUpcomingSessions";
 import { User } from "@/domain-logic/user/login";
 import { fetchClient } from "@/utils/fetch/fetchClient";
+import revalidateUpcoming from "../actions/revalidateUpcoming";
 
 async function login(credentials: { username: string; password: string }) {
   const { body: tokenResponse, headers } = await fetchClient.post(
@@ -15,7 +16,9 @@ async function login(credentials: { username: string; password: string }) {
     .split("=")[1];
 
   const { body: userResponse } = await fetchClient.get("/api/v1/users/me", {
-    Authorization: `Bearer ${tokenResponse.accessToken}`,
+    headers: {
+      Authorization: `Bearer ${tokenResponse.accessToken}`,
+    },
   });
 
   return {
@@ -70,6 +73,14 @@ async function bookMeeting({
     end_time,
     invitedUserId,
   });
+  revalidateUpcoming();
+}
+
+async function cancelMeeting({ meetingId }: { meetingId: number }) {
+  await fetchClient.patch(`/api/v1/meetings/${meetingId}`, {
+    status: "canceled",
+  });
+  revalidateUpcoming();
 }
 
 async function buyCredits({ credits }: { credits: number }) {
@@ -90,6 +101,7 @@ async function getMyUpcomingSessions({
 }): Promise<MySession[]> {
   const { body } = await fetchClient.get(
     `/api/v1/users/${userId}/meetings/upcoming`,
+    { next: { tags: ["upcoming"] } },
   );
 
   const meetings = body.data as {
@@ -138,4 +150,5 @@ export const userApi = {
   refreshToken,
   getMyUpcomingSessions,
   getMyHistorySessions,
+  cancelMeeting,
 };
