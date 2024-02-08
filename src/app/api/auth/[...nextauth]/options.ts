@@ -77,8 +77,6 @@ export const nextAuthOptions: NextAuthOptions = {
         const currentRefreshToken = token.refreshToken;
         // const currentRefreshToken = cookies().get("refreshToken");
         if (!currentRefreshToken) {
-          console.log("jwt, brak currentRefreshToken z cookies");
-
           return {
             ...token,
             error: "RefreshAccessTokenError",
@@ -102,10 +100,7 @@ export const nextAuthOptions: NextAuthOptions = {
           token.refreshToken = refreshToken;
           token.expireTime = expireTime;
           token.error = undefined;
-          console.log("jwt, token refreshed");
         } catch (error) {
-          console.log("jwt, some error", error);
-
           return {
             ...token,
             error: "RefreshAccessTokenError",
@@ -113,7 +108,6 @@ export const nextAuthOptions: NextAuthOptions = {
         }
       }
 
-      console.log("jwt, set Authorization header");
       fetchClient.setDefaultServerHeaders({
         Authorization: `Bearer ${token.accessToken}`,
       });

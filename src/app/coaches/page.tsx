@@ -9,7 +9,6 @@ import { backendApi } from "@/backendApi";
 export default async function Coaches(props: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  console.log("From Coaches");
   const categories = await getSpecializationsAction(() =>
     backendApi.specialization.getAll(),
   );

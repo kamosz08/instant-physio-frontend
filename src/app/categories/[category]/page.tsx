@@ -9,7 +9,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  console.log("From generateStaticParams(Category)");
   const categories = await getSpecializationsAction(() =>
     backendApi.specialization.getAll(),
   );
@@ -24,7 +23,6 @@ export default async function Category({
 }: {
   params: { category: string };
 }) {
-  console.log("From Category");
   const category = await getSpecializationDetailsAction(() =>
     backendApi.specialization.get({
       specializationSlug: decodeURI(params.category),
