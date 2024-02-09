@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Instant Physio pet project client
 
-## Getting Started
+Same for both: Here will be app description same of client and BE, demo link, GIF? POtential future
 
-First, run the development server:
+Idea for this project is to create a platform, which allows users to train from home with chosen personal coach.
+If we have technology where we can use AI to create such personal coaches, this platform could be used.
+That being said this is just a pet project to try out some technologies and patterns.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+At current stage user can browse through coaches with use of filters. He can get more credits (for free, payments aren't implemented) and use those credits to book a meeting with chosen coach at chosen time. He can browse though his sessions and cancel them.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+On client side sing up and coach/admin version of app was not implemented. On backend side api allows to create account and to manage them by admin. All coaches has been seeded using AI generated images with stable diffusion.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+TODO: GIF / DEMO
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Potential for future:
+- Sing up and coach/admin version of app on client side
+- Handle training sessions -> chat and video calls between coach and client
+- Payments
 
-## Learn More
+## How to run
 
-To learn more about Next.js, take a look at the following resources:
+`npm run dev`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Database:
+- MySQL
+- Redis
 
-## Deploy on Vercel
+TODO: DATABASE SCHEMA/link
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Backend:
+- Typescript
+- Express
+- Knex
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Frontend
+- Typescript
+- Next.js
+- Tailwind with DaisyUI
+
+
+## Deployment
+
+I have tried both standalone and managed Vercel deployment options.
+
+Deploy in EC2:
+Warning: Using t2.micro instance it was lacking resources to deploy both backend and frontend on single instance.
+1. Make sure you can SSH into EC2 instance
+2. Copy code to EC2 instance: 
+`rsync -avz --exclude 'node_modules' --exclude '.git' --exclude '.next' --exclude '.env' -e "ssh -i PATH_KEY.pem" . USER@IP_INSTANCE:~/webapp`
+3. Setup .env file
+4. Run `npm run build`
+5. Run `npm run start` (use pm2 or something similar to make sure app is always running in background)
+
+Deploy in Vercel:
+
+## Conclusions
+Same for both
+
+- Overall architecture of this project was obviously overkill. The easiest way to deliver such result would be to just use some managed DB and write API in Next.js
+
+- Client: Using DIP from "Clean Architecture" and creating domain-logic seems like a scalable good solution. For this project it was a bit overkill, but now if we wanted to create for example mobile app we can export both domain-logic and backendApi as separate packages. Domain logic is the highest level and other packages (backendApi, frontend, mobile) would depend on it. Frontend and mobile packages would also depend on backendAPI.
+
+- Backend: Feature based folder structure like one used in NestJS would make better developer experience than the one I have used here. At very small scale it becomes unoptimal to jump between folders. When we add new route we care about things related to this route so it makes sense to colocate them.
+
+- Backend: Using knex instead of full ORM makes it easy to step down to pure SQL queries and still it can provide us some typesafety
+
+- Backend: SQL vs NoSQL - this project didn't have any vision, sql database is not very flexible so it took some migrations. That being said I still think this use case fits SQL
+
+- Correct approach for JWT tokens storage is to store acces_token in memory and refresh_token in safe cookie. This way we are protected from XSS and CSRF. TODO: link to article
