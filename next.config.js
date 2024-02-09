@@ -6,7 +6,10 @@ const nextConfig = {
         protocol: "http",
         hostname: "localhost",
         port: "8000",
-        // pathname: '/account123/**',
+      },
+      {
+        protocol: "https",
+        hostname: "api.3.95.1.195.nip.io",
       },
     ],
   },
