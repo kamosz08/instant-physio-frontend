@@ -1,7 +1,5 @@
 ## Instant Physio pet project client
 
-Same for both: Here will be app description same of client and BE, demo link, GIF? POtential future
-
 Idea for this project is to create a platform, which allows users to train from home with chosen personal coach.
 If we have technology where we can use AI to create such personal coaches, this platform could be used.
 That being said this is just a pet project to try out some technologies and patterns.
@@ -10,7 +8,10 @@ At current stage user can browse through coaches with use of filters. He can get
 
 On client side sing up and coach/admin version of app was not implemented. On backend side api allows to create account and to manage them by admin. All coaches has been seeded using AI generated images with stable diffusion.
 
-TODO: GIF / DEMO
+[DEMO link](https://instant-physio-frontend.vercel.app/)
+
+[DEMO video](https://github.com/kamosz08/instant-physio-frontend/assets/38498544/5ba383a3-f735-4f03-b84a-2179df2435e2)
+
 
 Potential for future:
 - Sing up and coach/admin version of app on client side
@@ -27,7 +28,12 @@ Database:
 - MySQL
 - Redis
 
-TODO: DATABASE SCHEMA/link
+[Database schema](https://github.com/kamosz08/instant-physio-frontend/files/14261151/instantphysio.1.pdf)
+
+[instantphysio (1).pdf](https://github.com/kamosz08/instant-physio-frontend/files/14261183/instantphysio.1.pdf)
+
+
+https://dbdiagram.io/d/instantphysio-63ff3088296d97641d849986
 
 Backend:
 - Typescript
@@ -57,8 +63,6 @@ Deploy in Vercel:
 1. Follow official guide, connect github project to have CD out of the box
 
 ## Conclusions
-Same for both
-
 - Overall architecture of this project was obviously overkill. The easiest way to deliver such result would be to just use some managed DB and write API in Next.js
 
 - Client: Using DIP from "Clean Architecture" and creating domain-logic seems like a scalable good solution. For this project it was a bit overkill, but now if we wanted to create for example mobile app we can export both domain-logic and backendApi as separate packages. Domain logic is the highest level and other packages (backendApi, frontend, mobile) would depend on it. Frontend and mobile packages would also depend on backendAPI.
