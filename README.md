@@ -28,10 +28,7 @@ Database:
 - MySQL
 - Redis
 
-[Database schema](https://github.com/kamosz08/instant-physio-frontend/files/14261151/instantphysio.1.pdf)
-
-[instantphysio (1).pdf](https://github.com/kamosz08/instant-physio-frontend/files/14261183/instantphysio.1.pdf)
-
+![instantphysio](https://github.com/kamosz08/instant-physio-frontend/assets/38498544/adbd1e42-6acd-4723-a5b9-1aa6b6812329)
 
 https://dbdiagram.io/d/instantphysio-63ff3088296d97641d849986
 
