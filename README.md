@@ -54,6 +54,7 @@ Warning: Using t2.micro instance it was lacking resources to deploy both backend
 5. Run `npm run start` (use pm2 or something similar to make sure app is always running in background)
 
 Deploy in Vercel:
+1. Follow official guide, connect github project to have CD out of the box
 
 ## Conclusions
 Same for both
