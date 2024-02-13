@@ -6,6 +6,7 @@ import { Error } from "./Error";
 import { Success } from "./Success";
 import { buyCreditsAction } from "@/domain-logic/authUser/buyCredits";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 type FormStatus =
   | { status: "idle" }
@@ -14,7 +15,7 @@ type FormStatus =
 
 export function ConfirmBuyModal({ sessions }: { sessions: number }) {
   const modalRef = useRef<HTMLDialogElement>(null);
-  const { update } = useSession();
+  const { update, data } = useSession();
 
   const [formStatus, setFormStatus] = useState<FormStatus>({ status: "idle" });
 
@@ -51,15 +52,21 @@ export function ConfirmBuyModal({ sessions }: { sessions: number }) {
 
   return (
     <>
-      <button
-        className="btn btn-primary w-full mt-12 max-w-xs"
-        onClick={() => {
-          setFormStatus({ status: "idle" });
-          modalRef.current?.showModal();
-        }}
-      >
-        Choose Plan
-      </button>
+      {data?.user ? (
+        <button
+          className="btn btn-primary w-full mt-12 max-w-xs"
+          onClick={() => {
+            setFormStatus({ status: "idle" });
+            modalRef.current?.showModal();
+          }}
+        >
+          Choose Plan
+        </button>
+      ) : (
+        <Link className="btn btn-primary w-full mt-12 max-w-xs" href={"/login"}>
+          Choose Plan
+        </Link>
+      )}
       <dialog id="book_session_modal" className="modal" ref={modalRef}>
         <div className="modal-box w-11/12 max-w-lg py-8 px-6">
           <button

@@ -68,4 +68,4 @@ Same for both
 
 - Backend: SQL vs NoSQL - this project didn't have any vision, sql database is not very flexible so it took some migrations. That being said I still think this use case fits SQL
 
-- Correct approach for JWT tokens storage is to store acces_token in memory and refresh_token in safe cookie. This way we are protected from XSS and CSRF. TODO: link to article
+- Correct approach for JWT tokens storage is to store acces_token in memory and refresh_token in safe cookie. This way we are protected from XSS and CSRF. [Best way to store JWT tokens](https://dev.to/cotter/localstorage-vs-cookies-all-you-need-to-know-about-storing-jwt-tokens-securely-in-the-front-end-15id)
