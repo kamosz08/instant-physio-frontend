@@ -8,11 +8,6 @@ At current stage user can browse through coaches with use of filters. He can get
 
 On client side sing up and coach/admin version of app was not implemented. On backend side api allows to create account and to manage them by admin. All coaches has been seeded using AI generated images with stable diffusion.
 
-[DEMO link](https://instant-physio-frontend.vercel.app/)
-
-[DEMO video](https://github.com/kamosz08/instant-physio-frontend/assets/38498544/5ba383a3-f735-4f03-b84a-2179df2435e2)
-
-
 Potential for future:
 - Sing up and coach/admin version of app on client side
 - Handle training sessions -> chat and video calls between coach and client
